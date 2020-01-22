@@ -15,7 +15,13 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "stylesheet",
+        href: "https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -39,7 +45,8 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     "bootstrap-vue/nuxt",
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    ["@nuxtjs/moment", ["ja"]],
   ],
   /*
    ** Build configuration
@@ -53,9 +60,9 @@ export default {
 
   axios: {
     // baseURL: "http://localhost:8000/api",
-    proxy: true,
+    proxy: true
   },
   proxy: {
-    "/api": "http://localhost:8000",
+    "/api": "http://localhost:8000"
   }
 };

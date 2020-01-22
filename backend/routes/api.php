@@ -23,4 +23,11 @@ Route::middleware(['api'])->group(function () {
 
 Route::middleware(['auth:myauth'])->group(function () {
     Route::get('/whoami', 'API\LoginController@whoami');
+
+    Route::get('employee', 'API\EmployeeController@index');
+    Route::post('employee', 'API\EmployeeController@store');
+    Route::get('employee/{employee}', 'API\EmployeeController@show');
+    Route::put('employee/{employee}', 'API\EmployeeController@update');
+    Route::delete('employee/{employee}', 'API\EmployeeController@destroy');
+    Route::get('employee/selector', 'API\EmployeeController@selector');
 });
