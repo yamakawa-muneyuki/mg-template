@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use App\UserToken;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Auth::viaRequest('myauth', function ($request) {
+            $token = $request->bearerToken();
+            $user_token = UserToken::where('token', $token)->first();
+            if ($user_token instanceof UserToken) {
+                return $user_token->user;
+            } else {
+                return null;
+            }
+            
+        });
     }
 }
