@@ -76,16 +76,16 @@ export default {
       this.employees = data;
       this.isLoading = false;
     },
-    onCreate: function() {
+    onCreate() {
       //   this.$router.push({ name: "employee.create" });
     },
-    onShow: function(employee_id) {
+    onShow(employee_id) {
       //   this.$router.push({
       //     name: "employee.show",
       //     params: { employee_id: employee_id }
       //   });
     },
-    onBack: function() {
+    onBack() {
       //   this.$router.go(-1);
     }
   },
