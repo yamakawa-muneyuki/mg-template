@@ -15,21 +15,11 @@
 export default {
   async mounted() {
     // axios module で $axios が使える
-    this.$axios.setToken(localStorage.getItem("TOKEN"))
+    this.$axios.setToken(localStorage.getItem("TOKEN"), 'Bearer')
     try {
-      const api = this.$axios.create({
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem("TOKEN")
-        }
-      })
-      const responce = api.get("/api/whoami")
-      .then(({data}) => {
-        console.log(data)
-        this.$store.commit("user/setUser", data.user)
-      })
-      // const {data} = await this.$axios.get("/api/whoami")
+      const {data} = await this.$axios.get("/api/whoami")
       // page 側では user を store 経由で取得
-      // this.$store.commit("user/setUser", data.user)
+      this.$store.commit("user/setUser", data.user)
     } catch (e) {
       alert("認証エラーです。")
       this.$router.push("/login")
