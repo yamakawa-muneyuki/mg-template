@@ -14,11 +14,6 @@
 <script>
 export default {
   async mounted() {
-    const result = await this.$store.dispatch("user/relogin")
-    if(!result){
-      alert("認証エラーです。")
-      this.$router.push("/login")
-    }
   },
 }
 </script>

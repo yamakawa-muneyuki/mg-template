@@ -58,8 +58,9 @@ export default {
       inspected_on: ""
     };
   },
-  mounted() {
+  async mounted() {
     this.inspected_on = this.$moment().format("YYYY-MM-DD");
+    await this.$store.dispatch("user/relogin")
     this.getItems();
   },
   watch: {
@@ -71,7 +72,6 @@ export default {
   methods: {
     async getItems() {
       this.isLoading = true;
-      this.$axios.setToken(localStorage.getItem("TOKEN"), "Bearer");
       const { data } = await this.$axios.$get("/api/employee");
       this.employees = data;
       this.isLoading = false;

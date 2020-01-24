@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  layout: "guest",
   data () {
     return {
       form: {
@@ -47,15 +48,9 @@ export default {
     }
   },
   methods: {
-    login () {
-      const api = this.$axios.create()
-      const responce = api.post("/api/login", this.form)
-      .then(({data}) => {
-        console.log({data})
-        // this.token = data.token.token
-        localStorage.setItem("TOKEN", data.token.token)
-        this.$router.replace("/")
-      })
+    async login () {
+      await this.$store.dispatch("user/login",this.form)
+      this.$router.replace("/")
     },
   },
 }
