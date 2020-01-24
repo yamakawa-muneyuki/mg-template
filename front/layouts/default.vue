@@ -5,6 +5,9 @@
         <a class="navbar-brand" href="/">LP SITE</a>
       </div>
     </nav>
+    <div v-if="$store.state.loading.count !== 0" class="loading">
+      loading
+    </div>
     <div class="container">
       <nuxt />
     </div>

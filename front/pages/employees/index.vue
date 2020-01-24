@@ -62,6 +62,7 @@ export default {
     this.inspected_on = this.$moment().format("YYYY-MM-DD");
     await this.$store.dispatch("user/relogin")
     this.getItems();
+    this.getItems2();
   },
   watch: {
     //
@@ -71,10 +72,17 @@ export default {
   },
   methods: {
     async getItems() {
+      this.$store.dispatch("loading/add")
       this.isLoading = true;
       const { data } = await this.$axios.$get("/api/employee");
       this.employees = data;
-      this.isLoading = false;
+      this.$store.dispatch("loading/sub")
+    },
+    async getItems2() {
+      this.$store.dispatch("loading/add")
+      const { data } = await this.$axios.$get("/api/employee");
+      this.employees = data;
+      this.$store.dispatch("loading/sub")
     },
     onCreate() {
       this.$router.push('employees/create');

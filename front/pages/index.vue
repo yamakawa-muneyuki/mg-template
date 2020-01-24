@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import vuex from "vuex"
+
 export default {
   data() {
     return {
@@ -35,9 +37,13 @@ export default {
     }, 500);
   },
   computed: {
-    own() {
-      return this.$store.state.user.user;
-    }
+    ...vuex.mapState("user",{own:"user"}),
+    // own() {
+    //   return this.$store.state.user.user;
+    // }
+  },
+  methods: {
+    ...vuex.mapActions("user",["login"]),
   }
 };
 </script>

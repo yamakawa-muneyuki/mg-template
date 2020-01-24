@@ -237,6 +237,8 @@ export default {
 
       let _this = this;
       if (this.mode == "create") {
+        this.$emit("submit")
+
         axios
           .post("/api/employee", {
             employee: this.employee,
