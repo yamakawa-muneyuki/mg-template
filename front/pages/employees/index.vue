@@ -71,22 +71,24 @@ export default {
   methods: {
     async getItems() {
       this.isLoading = true;
-      this.$axios.setToken(localStorage.getItem("TOKEN"), 'Bearer')
-      const {data} = await this.$axios.$get("/api/employee");
+      this.$axios.setToken(localStorage.getItem("TOKEN"), "Bearer");
+      const { data } = await this.$axios.$get("/api/employee");
       this.employees = data;
       this.isLoading = false;
     },
     onCreate() {
-      //   this.$router.push({ name: "employee.create" });
+      this.$router.push('employees/create');
+      // this.$router.push({ name: "employee-create" });
     },
     onShow(employee_id) {
-      //   this.$router.push({
-      //     name: "employee.show",
-      //     params: { employee_id: employee_id }
-      //   });
+      this.$router.push('employees/' + employee_id);
+        // this.$router.push({
+        //   name: "employees",
+        //   params: { id: employee_id }
+        // });
     },
     onBack() {
-      //   this.$router.go(-1);
+        this.$router.go(-1);
     }
   },
   components: {
@@ -96,4 +98,15 @@ export default {
 </script>
 
 <style>
+.span-header {
+  font-size: 1.5rem;
+  font-weight: 300;
+  /* color: $info; */
+}
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  background-color: #fff8e1 !important;
+}
 </style>

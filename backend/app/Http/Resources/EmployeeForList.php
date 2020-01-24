@@ -18,7 +18,7 @@ class EmployeeForList extends JsonResource
             'id' => $this->id,
             'full_name' => $this->full_name,
             'user_name' => $this->user->name,
-            'is_admin' => $this->user->is_admin,
+            // 'is_admin' => $this->user->is_admin,
         ];
     }
 }
