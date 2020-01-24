@@ -30,11 +30,14 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/vuelidate.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -59,7 +62,7 @@ export default {
   },
 
   axios: {
-    // baseURL: "http://localhost:8000/api",
+    // baseURL: "http://localhost:8000/",
     proxy: true
   },
   proxy: {

@@ -1,5 +1,5 @@
 <template>
-  <create-update :id="id"/>
+  <create-update @submit="update"/>
 </template>
 
 <script>
