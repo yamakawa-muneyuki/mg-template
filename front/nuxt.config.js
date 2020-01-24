@@ -31,12 +31,13 @@ export default {
    ** Global CSS
    */
   css: [
-    "~assets/scss/common.scss"
   ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    '~/plugins/vuelidate.js'
+  ],
   /*
    ** Nuxt.js dev-modules
    */
