@@ -68,7 +68,9 @@ export default {
       if(this.$v.form.$invalid){
         alert("エラーです。")
       }else{
-        this.$emit(this.form)
+        // this.$emit(this.form)
+        await this.$store.dispatch("user/login",this.form)
+        this.$router.replace("/")
       }
 
       // await this.$store.dispatch("user/login",this.form)

@@ -20,7 +20,7 @@
                     type="text"
                     class="form-control"
                     id="last_name"
-                    v-model="employee.last_name"
+                    v-model="$v.employee.last_name.$model"
                   />
                 </div>
               </div>
@@ -149,23 +149,31 @@
 </template>
 
 <script>
+import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
+
+const validations = {
+  employee: {
+    last_name: { required },
+    user_name: { required },
+    password: {
+      required: requiredIf(function() {
+        return this.isCreate || this.password
+      }),
+      minLength: minLength(4),
+    }
+  },
+}
+
 export default {
+  components: {
+    // Loading
+  },
   props: {
-    employee_id: null,
+    employee: null,
+    mode: null,
   },
   data() {
     return {
-      employee: {
-        id: "",
-        first_name: "",
-        last_name: "",
-        first_phonetic_name: "",
-        last_phonetic_name: "",
-        email: "",
-        user_name: "",
-        password: "",
-        is_admin: false
-      },
       roles: [],
       invalid: false,
       errorMessage: "",
@@ -174,134 +182,49 @@ export default {
       fullPage: false
     };
   },
-  created() {
-    // this.getItems();
-  },
   computed: {
-    own: function() {
+    own() {
       return this.$store.state.user;
     },
-    title: function() {
-      return this.mode == "create" ? "従業員の新規作成" : "従業員の編集";
+    title() {
+      return this.isCreate ? "従業員の新規作成" : "従業員の編集";
     },
-    mode: function() {
-      return this.employee_id ? "update" : "create";
-    },
-    enable_delete: function() {
+    enable_delete() {
       if (this.mode == "create") {
         return false;
       }
-      return this.own.employee_id != this.employee_id;
-    }
+      return this.own.employee_id != this.employee.id;
+    },
+    isCreate() {
+      return this.mode == "create"
+    },
+    isUpdate() {
+      return this.mode == "update"
+    },
+  },
+  watch: {
+    //
   },
   methods: {
-    getInit() {
-      // this.isLoading = true;
-      // const api = axios.create()
-      // axios.all([
-      //     api.get('/api/team/selector'),
-      // ]).then(axios.spread((res1, res2, res3) => {
-      //     this.getItems()
-      // }))
-    },
-    async getItems() {
-      this.isLoading = true;
-      this.$axios.setToken(localStorage.getItem("TOKEN"), "Bearer");
-      const { data } = await this.$axios.$get("/api/employee" + this.employee_id);
-      this.employee = data;
-      this.isLoading = false;
-    },
     onStore() {
-      this.invalid = false;
-      this.errorMessage = "";
-      if (!this.employee.last_name) {
-        this.errorMessage = "姓を入力してください。";
-        this.invalid = true;
-        return;
-      }
-      if (!this.employee.user_name) {
-        this.errorMessage = "ユーザIDを入力してください。";
-        this.invalid = true;
-        return;
-      }
-      if (this.mode == "create" && !this.employee.password) {
-        this.errorMessage = "パスワードを4文字以上で入力してください。";
-        this.invalid = true;
-        return;
-      }
-      if (this.employee.password && this.employee.password.length < 4) {
-        this.errorMessage = "パスワードは4文字以上で入力してください。";
-        this.invalid = true;
-        return;
-      }
-
-      let _this = this;
-      if (this.mode == "create") {
-        this.$emit("submit")
-
-        axios
-          .post("/api/employee", {
-            employee: this.employee,
-            teams: this.teams
-          })
-          .then(function(resp) {
-            if (resp.data.result) {
-              alert("登録しました。");
-              _this.$router.go(-1);
-            } else {
-              _this.errorMessage = resp.data.errorMessage;
-              _this.invalid = true;
-            }
-          })
-          .catch(function(resp) {
-            console.log(resp);
-          });
+      this.$v.$touch()
+      if (this.$v.employee.$invalid) {
+        alert("エラーです。")
       } else {
-        axios
-          .put("/api/employee/" + this.employee.id, {
-            employee: this.employee,
-            teams: this.teams
-          })
-          .then(function(resp) {
-            if (resp.data.result) {
-              alert("更新しました。");
-              _this.$router.go(-1);
-            } else {
-              _this.errorMessage = resp.data.errorMessage;
-              _this.invalid = true;
-            }
-          })
-          .catch(function(resp) {
-            console.log(resp);
-          });
+        this.$emit("store", this.employee)
       }
     },
     onBack() {
-      // this.$emit('cancel');
-      this.$router.go(-1);
+      this.$emit('back')
     },
     onDelete() {
       if (!confirm("削除してもよろしいですか？")) {
         return;
       }
-      let _this = this;
-      axios
-        .delete("/api/employee/" + this.employee.id)
-        .then(function(resp) {
-          alert("削除しました。");
-          _this.$router.go(-1);
-        })
-        .catch(function(resp) {
-          console.log(resp);
-        })
-        .finally(function() {
-          //
-        });
+      this.$emit('delete')
     }
   },
-  components: {
-    // Loading
-  }
+  validations
 };
 </script>
 

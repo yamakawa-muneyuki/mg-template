@@ -50,6 +50,9 @@
 
 <script>
 export default {
+  components: {
+    // Loading
+  },
   props: [],
   data() {
     return {
@@ -58,17 +61,15 @@ export default {
       inspected_on: ""
     };
   },
-  async mounted() {
-    this.inspected_on = this.$moment().format("YYYY-MM-DD");
-    await this.$store.dispatch("user/relogin")
-    this.getItems();
-    this.getItems2();
+  computed: {
+    //
   },
   watch: {
     //
   },
-  computed: {
-    //
+  async mounted() {
+    await this.$store.dispatch("user/relogin")
+    this.getItems();
   },
   methods: {
     async getItems() {
@@ -78,30 +79,16 @@ export default {
       this.employees = data;
       this.$store.dispatch("loading/sub")
     },
-    async getItems2() {
-      this.$store.dispatch("loading/add")
-      const { data } = await this.$axios.$get("/api/employee");
-      this.employees = data;
-      this.$store.dispatch("loading/sub")
-    },
     onCreate() {
       this.$router.push('employees/create');
-      // this.$router.push({ name: "employee-create" });
     },
     onShow(employee_id) {
       this.$router.push('employees/' + employee_id);
-        // this.$router.push({
-        //   name: "employees",
-        //   params: { id: employee_id }
-        // });
     },
     onBack() {
         this.$router.go(-1);
     }
   },
-  components: {
-    // Loading
-  }
 };
 </script>
 
