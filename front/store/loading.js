@@ -17,7 +17,7 @@ export const actions = {
       commit("add")
       setTimeout(()=>{
         commit("sub")
-      },1000)
+      },500)
     }
     commit("add")
   },
