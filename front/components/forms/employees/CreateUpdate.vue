@@ -8,6 +8,9 @@
               <div class="mr-auto">
                 <span class="span-header">{{title}}</span>
               </div>
+              <div class="align-self-center mr-2" v-if="isUpdate">
+                <button type="button" class="btn btn-info" @click="onCopy">コピー</button>
+              </div>
               <div class="align-self-center">
                 <button type="button" class="btn btn-dark" @click="onBack">戻る</button>
               </div>
@@ -190,13 +193,13 @@ export default {
       return this.isCreate ? "従業員の新規作成" : "従業員の編集";
     },
     enable_delete() {
-      if (this.mode == "create") {
+      if (this.isCreate) {
         return false;
       }
       return this.own.employee_id != this.employee.id;
     },
     isCreate() {
-      return this.mode == "create"
+      return this.mode == "create" || this.mode == "copy"
     },
     isUpdate() {
       return this.mode == "update"
@@ -222,7 +225,10 @@ export default {
         return;
       }
       this.$emit('delete')
-    }
+    },
+    onCopy() {
+      this.$emit('copy')
+    },
   },
   validations
 };

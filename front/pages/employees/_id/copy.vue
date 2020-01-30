@@ -1,5 +1,5 @@
 <template>
-  <create-update mode="update" :employee="employee" @store="onUpdate" @delete="onDelete" @copy="onCopy" @cancel="onBack" @back="onBack"/>
+  <create-update mode="copy" :employee="employee" @store="onCreate" @cancel="onBack" @back="onBack"/>
 </template>
 
 <script>
@@ -38,39 +38,25 @@ export default {
       this.$store.dispatch("loading/add");
       const { data } = await this.$axios.$get("/api/employee/" + this.id);
       this.employee = data;
+      this.employee.user_name = null;
       this.$store.dispatch("loading/sub");
     },
-    async onUpdate() {
+    async onCreate() {
       this.$store.dispatch("loading/add");
-      const resp = await this.$axios.$put("/api/employee/"+ this.employee.id, {
+      const resp = await this.$axios.$post("/api/employee", {
         employee: this.employee,
       });
       if (resp.result) {
-        alert("更新しました。");
+        alert("登録しました。");
         this.$router.go(-1);
       } else {
-        this.errorMessage = resp.data.errorMessage;
-        this.invalid = true;
-      }
-      this.$store.dispatch("loading/sub");
-    },
-    async onDelete() {
-      this.$store.dispatch("loading/add");
-      const resp = await this.$axios.$delete("/api/employee/"+ this.employee.id);
-      if (resp.result) {
-        alert("削除しました。");
-        this.$router.go(-1);
-      } else {
-        this.errorMessage = resp.data.errorMessage;
+        this.errorMessage = resp.errorMessage;
         this.invalid = true;
       }
       this.$store.dispatch("loading/sub");
     },
     onBack() {
       this.$router.go(-1);
-    },
-    onCopy() {
-      this.$router.replace(this.employee.id + "/copy")
     }
   },
 }
