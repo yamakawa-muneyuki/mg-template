@@ -154,6 +154,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import vuex from "vuex"
 export default {
   components: {

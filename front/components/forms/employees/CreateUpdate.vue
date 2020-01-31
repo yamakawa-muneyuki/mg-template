@@ -2,100 +2,152 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
-        <div class="card" key="admin">
+        <div key="admin" class="card">
           <div class="card-body">
             <div class="d-flex justify-content-start mb-3">
               <div class="mr-auto">
-                <span class="span-header">{{title}}</span>
+                <span class="span-header">{{ title }}</span>
               </div>
-              <div class="align-self-center mr-2" v-if="isUpdate">
-                <button type="button" class="btn btn-info" @click="onCopy">コピー</button>
+              <div v-if="isUpdate" class="align-self-center mr-2">
+                <button type="button" class="btn btn-info" @click="onCopy">
+                  コピー
+                </button>
               </div>
               <div class="align-self-center">
-                <button type="button" class="btn btn-dark" @click="onBack">戻る</button>
+                <button type="button" class="btn btn-dark" @click="onBack">
+                  戻る
+                </button>
               </div>
             </div>
             <form>
               <div class="form-group required-label row">
-                <label for="last_name" class="col-sm-4 col-form-label text-md-right">姓</label>
+                <label
+                  for="last_name"
+                  class="col-sm-4 col-form-label text-md-right"
+                >
+                  姓
+                </label>
                 <div class="col-md-6">
                   <input
-                    type="text"
-                    class="form-control"
                     id="last_name"
                     v-model="$v.employee.last_name.$model"
+                    type="text"
+                    class="form-control"
                   />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="first_name" class="col-sm-4 col-form-label text-md-right">名</label>
+                <label
+                  for="first_name"
+                  class="col-sm-4 col-form-label text-md-right"
+                >
+                  名
+                </label>
                 <div class="col-md-6">
                   <input
-                    type="text"
-                    class="form-control"
                     id="first_name"
                     v-model="employee.first_name"
+                    type="text"
+                    class="form-control"
                   />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="last_phonetic_name" class="col-sm-4 col-form-label text-md-right">カナ姓</label>
+                <label
+                  for="last_phonetic_name"
+                  class="col-sm-4 col-form-label text-md-right"
+                >
+                  カナ姓
+                </label>
                 <div class="col-md-6">
                   <input
-                    type="text"
-                    class="form-control"
                     id="last_phonetic_name"
                     v-model="employee.last_phonetic_name"
-                  />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="first_phonetic_name" class="col-sm-4 col-form-label text-md-right">カナ名</label>
-                <div class="col-md-6">
-                  <input
                     type="text"
                     class="form-control"
-                    id="first_phonetic_name"
-                    v-model="employee.first_phonetic_name"
                   />
                 </div>
               </div>
               <div class="form-group row">
-                <label for="email" class="col-sm-4 col-form-label text-md-right">Mail</label>
+                <label
+                  for="first_phonetic_name"
+                  class="col-sm-4 col-form-label text-md-right"
+                >
+                  カナ名
+                </label>
                 <div class="col-md-6">
-                  <input type="text" class="form-control" id="email" v-model="employee.email" />
+                  <input
+                    id="first_phonetic_name"
+                    v-model="employee.first_phonetic_name"
+                    type="text"
+                    class="form-control"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label
+                  for="email"
+                  class="col-sm-4 col-form-label text-md-right"
+                >
+                  Mail
+                </label>
+                <div class="col-md-6">
+                  <input
+                    id="email"
+                    v-model="employee.email"
+                    type="text"
+                    class="form-control"
+                  />
                 </div>
               </div>
               <div class="form-group required-label row">
-                <label for="user_name" class="col-sm-4 col-form-label text-md-right">ユーザーID</label>
+                <label
+                  for="user_name"
+                  class="col-sm-4 col-form-label text-md-right"
+                >
+                  ユーザーID
+                </label>
                 <div class="col-md-6">
                   <input
-                    type="text"
-                    class="form-control"
                     id="user_name"
                     v-model="employee.user_name"
+                    type="text"
+                    class="form-control"
                   />
                 </div>
               </div>
-              <div class="form-group required-label row" v-if="mode=='create'">
-                <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
+              <div
+                v-if="mode == 'create'"
+                class="form-group required-label row"
+              >
+                <label
+                  for="password"
+                  class="col-md-4 col-form-label text-md-right"
+                >
+                  パスワード
+                </label>
                 <div class="col-md-6">
                   <input
-                    type="password"
-                    class="form-control"
                     id="password"
                     v-model="employee.password"
+                    type="password"
+                    class="form-control"
                   />
                 </div>
               </div>
-              <div class="form-group row" v-else>
-                <label for="password" class="col-md-4 col-form-label text-md-right">パスワード</label>
+              <div v-else class="form-group row">
+                <label
+                  for="password"
+                  class="col-md-4 col-form-label text-md-right"
+                >
+                  パスワード
+                </label>
                 <div class="col-md-6">
                   <input
-                    type="password"
-                    class="form-control"
                     id="password"
                     v-model="employee.password"
+                    type="password"
+                    class="form-control"
                   />
                   <div class="text-muted">
                     <small>※変更する場合は入力してください。</small>
@@ -104,43 +156,57 @@
               </div>
               <div class="form-group row">
                 <div class="col-md-4 text-md-right">
-                  <label for="is_admin" class="col-form-label">権限の選択</label>
+                  <label for="is_admin" class="col-form-label">
+                    権限の選択
+                  </label>
                 </div>
                 <div class="col-md-8 pt-1">
                   <div class="custom-control custom-checkbox mt-1">
                     <input
-                      type="checkbox"
-                      class="custom-control-input"
                       id="is_admin"
                       v-model="employee.is_admin"
+                      type="checkbox"
+                      class="custom-control-input"
                     />
-                    <label class="custom-control-label" for="is_admin">管理者権限を付与する</label>
+                    <label class="custom-control-label" for="is_admin">
+                      管理者権限を付与する
+                    </label>
                   </div>
                 </div>
               </div>
               <div class="row-line">
                 <transition name="fade" mode="out-in">
-                  <div class="alert alert-danger" role="alert" v-if="invalid">{{errorMessage}}</div>
+                  <div v-if="invalid" class="alert alert-danger" role="alert">
+                    {{ errorMessage }}
+                  </div>
                 </transition>
               </div>
             </form>
             <div class="d-flex justify-content-start mt-4">
               <div class="mr-auto">
                 <button
+                  v-if="enable_delete"
                   type="button"
                   class="btn btn-outline-danger"
-                  v-if="enable_delete"
                   @click="onDelete"
-                >この従業員を削除する</button>
+                >
+                  この従業員を削除する
+                </button>
               </div>
               <div class="mr-3">
-                <button type="button" class="btn btn-dark" @click="onBack">キャンセル</button>
+                <button type="button" class="btn btn-dark" @click="onBack">
+                  キャンセル
+                </button>
               </div>
-              <div v-if="mode!='create'">
-                <button type="button" class="btn btn-primary" @click="onStore">保存する</button>
+              <div v-if="mode != 'create'">
+                <button type="button" class="btn btn-primary" @click="onStore">
+                  保存する
+                </button>
               </div>
               <div v-else>
-                <button type="button" class="btn btn-primary" @click="onStore">登録する</button>
+                <button type="button" class="btn btn-primary" @click="onStore">
+                  登録する
+                </button>
               </div>
             </div>
           </div>
@@ -152,30 +218,21 @@
 </template>
 
 <script>
-import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
-
-import { validations } from "~/service/validations/employees";
-
-const validations = {
-  employee: {
-    last_name: { required },
-    user_name: { required },
-    password: {
-      required: requiredIf(function() {
-        return this.isCreate || this.password
-      }),
-      minLength: minLength(4),
-    }
-  },
-}
+import { validations } from "~/service/validations/employees"
 
 export default {
   components: {
     // Loading
   },
   props: {
-    employee: null,
-    mode: null,
+    employee: {
+      type: Object,
+      required: true
+    },
+    mode: {
+      type: String,
+      required: true
+    }
   },
   data() {
     return {
@@ -185,27 +242,27 @@ export default {
 
       isLoading: false,
       fullPage: false
-    };
+    }
   },
   computed: {
     own() {
-      return this.$store.state.user;
+      return this.$store.state.user
     },
     title() {
-      return this.isCreate ? "従業員の新規作成" : "従業員の編集";
+      return this.isCreate ? "従業員の新規作成" : "従業員の編集"
     },
     enable_delete() {
       if (this.isCreate) {
-        return false;
+        return false
       }
-      return this.own.employee_id != this.employee.id;
+      return this.own.employee_id != this.employee.id
     },
     isCreate() {
       return this.mode == "create" || this.mode == "copy"
     },
     isUpdate() {
       return this.mode == "update"
-    },
+    }
   },
   watch: {
     //
@@ -220,20 +277,20 @@ export default {
       }
     },
     onBack() {
-      this.$emit('back')
+      this.$emit("back")
     },
     onDelete() {
       if (!confirm("削除してもよろしいですか？")) {
-        return;
+        return
       }
-      this.$emit('delete')
+      this.$emit("delete")
     },
     onCopy() {
-      this.$emit('copy')
-    },
+      this.$emit("copy")
+    }
   },
   validations
-};
+}
 </script>
 
 <style scoped>

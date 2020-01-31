@@ -10,7 +10,9 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="name" class="col-sm-4 col-form-label text-md-right">ユーザID</label>
+              <label for="name" class="col-sm-4 col-form-label text-md-right">
+                ユーザID
+              </label>
               <div class="col-md-6">
                 <input
                   id="name"
@@ -18,7 +20,7 @@
                   type="name"
                   class="form-control"
                   autofocus
-                >
+                />
               </div>
               <div v-if="$v.form.name.$dirty && $v.form.name.$invalid">
                 ユーザ名を入力してください。
@@ -28,14 +30,16 @@
               <label
                 for="password"
                 class="col-sm-4 col-form-label text-md-right"
-              >パスワード</label>
+              >
+                パスワード
+              </label>
               <div class="col-md-6">
                 <input
                   id="password"
                   v-model="$v.form.password.$model"
                   type="password"
                   class="form-control"
-                >
+                />
               </div>
               <div v-if="$v.form.password.$dirty && $v.form.password.$invalid">
                 パスワードを入力してください。

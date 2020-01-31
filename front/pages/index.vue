@@ -31,16 +31,16 @@ export default {
       show: false
     }
   },
-  mounted() {
-    setTimeout(() => {
-      this.show = true
-    }, 500)
-  },
   computed: {
     ...vuex.mapState("user", { own: "user" })
     // own() {
     //   return this.$store.state.user.user;
     // }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.show = true
+    }, 500)
   },
   methods: {
     ...vuex.mapActions("user", ["login"])

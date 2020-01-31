@@ -20,6 +20,8 @@ module.exports = {
   ],
   // ここにカスタムルールを追加します。
   rules: {
+    "vue/html-self-closing": 'off',
+    "no-async-promise-executor" : "off",
     'semi': [2, 'never'],
     'no-console': 'off',
     'vue/max-attributes-per-line': 'off',
