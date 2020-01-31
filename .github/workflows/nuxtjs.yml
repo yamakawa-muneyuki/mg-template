@@ -1,4 +1,4 @@
-name: Nuxtjs Simple
+name: NuxtjsSimple
 
 on: [push]
 
@@ -7,12 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: move to project dir
-        run: |
-          cd front
       - name: Install Dependencies
         run: |
+          cd front
           npm ci
-      - name: Execute tests
-        run: |
           npm run lint
