@@ -154,6 +154,8 @@
 <script>
 import { required, requiredIf, minLength } from 'vuelidate/lib/validators'
 
+import { validations } from "~/service/validations/employees";
+
 const validations = {
   employee: {
     last_name: { required },
