@@ -1,3 +1,1 @@
-export const validations = {
-
-}
+export const validations = {}

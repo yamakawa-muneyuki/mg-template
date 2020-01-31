@@ -1,4 +1,3 @@
-
 export default {
   mode: "universal",
   /*
@@ -68,4 +67,4 @@ export default {
   proxy: {
     "/api": "http://localhost:8000"
   }
-};
+}

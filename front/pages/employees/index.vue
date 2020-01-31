@@ -10,33 +10,47 @@
               </div>
               <div class="align-self-center mr-3">
                 <button type="button" class="btn btn-primary" @click="onCreate">
-                  <i class="fas fa-plus"></i> 新規追加
+                  <i class="fas fa-plus" /> 新規追加
                 </button>
               </div>
               <div class="align-self-center">
-                <button type="button" class="btn btn-dark" @click="onBack">戻る</button>
+                <button type="button" class="btn btn-dark" @click="onBack">
+                  戻る
+                </button>
               </div>
             </div>
 
-            <table class="table-custom" key="processes">
+            <table key="processes" class="table-custom">
               <thead>
                 <tr>
-                  <th class="text-center">氏名</th>
-                  <th class="text-center">ユーザID</th>
-                  <th class="text-center">管理者権限</th>
+                  <th class="text-center">
+                    氏名
+                  </th>
+                  <th class="text-center">
+                    ユーザID
+                  </th>
+                  <th class="text-center">
+                    管理者権限
+                  </th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr
                   v-for="employee in employees"
-                  class="clickable"
                   :key="employee.id"
+                  class="clickable"
                   @click="onShow(employee.id)"
                 >
-                  <td class="text-center align-middle">{{employee.full_name}}</td>
-                  <td class="text-center align-middle">{{employee.user_name}}</td>
-                  <td class="text-center align-middle">{{employee.is_admin ? '〇' : ''}}</td>
+                  <td class="text-center align-middle">
+                    {{ employee.full_name }}
+                  </td>
+                  <td class="text-center align-middle">
+                    {{ employee.user_name }}
+                  </td>
+                  <td class="text-center align-middle">
+                    {{ employee.is_admin ? "〇" : "" }}
+                  </td>
                 </tr>
               </tbody>
               <!-- <loading :active.sync="isLoading"></loading> -->
@@ -59,7 +73,7 @@ export default {
       employees: [],
       isLoading: false,
       inspected_on: ""
-    };
+    }
   },
   computed: {
     //
@@ -69,29 +83,27 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("user/relogin")
-    this.getItems();
+    this.getItems()
   },
   methods: {
     async getItems() {
       this.$store.dispatch("loading/add")
-      this.isLoading = true;
-      const { data } = await this.$axios.$get("/api/employee");
-      this.employees = data;
+      this.isLoading = true
+      const { data } = await this.$axios.$get("/api/employee")
+      this.employees = data
       this.$store.dispatch("loading/sub")
     },
     onCreate() {
-      this.$router.push('employees/create');
+      this.$router.push("employees/create")
     },
     onShow(employee_id) {
-      this.$router.push('employees/' + employee_id);
+      this.$router.push("employees/" + employee_id)
     },
     onBack() {
-        this.$router.go(-1);
+      this.$router.go(-1)
     }
-  },
-};
+  }
+}
 </script>
 
-<style>
-
-</style>
+<style></style>

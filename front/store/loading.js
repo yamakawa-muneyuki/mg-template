@@ -1,28 +1,27 @@
 export const state = () => ({
   count: 0
-});
+})
 
 export const mutations = {
   add(state) {
-    state.count ++;
+    state.count++
   },
   sub(state) {
-    state.count --
-  },
-};
+    state.count--
+  }
+}
 
 export const actions = {
-  add({commit,state}) {
-    if(state.count === 0){
+  add({ commit, state }) {
+    if (state.count === 0) {
       commit("add")
-      setTimeout(()=>{
+      setTimeout(() => {
         commit("sub")
-      },500)
+      }, 500)
     }
     commit("add")
   },
-  sub({commit}) {
+  sub({ commit }) {
     commit("sub")
-  },
-
-};
+  }
+}
