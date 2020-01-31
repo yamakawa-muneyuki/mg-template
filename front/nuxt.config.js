@@ -30,13 +30,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-  ],
+  css: ["~assets/scss/common.scss"],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/vuelidate.js'
+    "~/plugins/vuelidate.js"
+    // '~/plugins/mgs-components.js',
   ],
   /*
    ** Nuxt.js dev-modules
@@ -49,7 +49,7 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     "bootstrap-vue/nuxt",
     "@nuxtjs/axios",
-    ["@nuxtjs/moment", ["ja"]],
+    ["@nuxtjs/moment", ["ja"]]
   ],
   /*
    ** Build configuration

@@ -1,7 +1,6 @@
 <template>
   <div class="vld-parent">
-    <loading :active="isLoading" 
-      :is-full-page="fullPage"></loading>
+    <loading :active="isLoading"></loading>
     
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
       <div class="container">

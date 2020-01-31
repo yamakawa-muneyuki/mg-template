@@ -16,8 +16,12 @@
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0",
     "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
+    "sass-loader": "^8.0.2",
     "vue-loading-overlay": "^3.2.0",
+    "vue-mg-date-picker-from-to": "^1.0.3",
+    "vue-mg-date-picker-standard": "^1.0.1",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {}

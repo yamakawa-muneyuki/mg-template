@@ -18,7 +18,7 @@
               </div>
             </div>
 
-            <table class="table" key="processes">
+            <table class="table-custom" key="processes">
               <thead>
                 <tr>
                   <th class="text-center">氏名</th>
@@ -51,7 +51,7 @@
 <script>
 export default {
   components: {
-    // Loading
+    //
   },
   props: [],
   data() {
@@ -93,15 +93,5 @@ export default {
 </script>
 
 <style>
-.span-header {
-  font-size: 1.5rem;
-  font-weight: 300;
-  /* color: $info; */
-}
-.clickable {
-  cursor: pointer;
-}
-.clickable:hover {
-  background-color: #fff8e1 !important;
-}
+
 </style>
