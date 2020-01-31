@@ -1,13 +1,21 @@
 <template>
-  <create-update mode="update" :employee="employee" @store="onUpdate" @delete="onDelete" @copy="onCopy" @cancel="onBack" @back="onBack"/>
+  <create-update
+    mode="update"
+    :employee="employee"
+    @store="onUpdate"
+    @delete="onDelete"
+    @copy="onCopy"
+    @cancel="onBack"
+    @back="onBack"
+  />
 </template>
 
 <script>
-import CreateUpdate from '~/components/forms/employees/CreateUpdate.vue'
+import CreateUpdate from "~/components/forms/employees/CreateUpdate.vue"
 
 export default {
   components: {
-      CreateUpdate,
+    CreateUpdate
   },
   data() {
     return {
@@ -21,57 +29,59 @@ export default {
         user_name: "",
         password: "",
         is_admin: false
-      },
+      }
     }
   },
   computed: {
     id() {
       return this.$route.params.id
-    },
+    }
   },
   async mounted() {
-    await this.$store.dispatch("user/relogin");
+    await this.$store.dispatch("user/relogin")
     this.getItems()
   },
   methods: {
     async getItems() {
-      this.$store.dispatch("loading/add");
-      const { data } = await this.$axios.$get("/api/employee/" + this.id);
-      this.employee = data;
-      this.$store.dispatch("loading/sub");
+      this.$store.dispatch("loading/add")
+      const { data } = await this.$axios.$get("/api/employee/" + this.id)
+      this.employee = data
+      this.$store.dispatch("loading/sub")
     },
     async onUpdate() {
-      this.$store.dispatch("loading/add");
-      const resp = await this.$axios.$put("/api/employee/"+ this.employee.id, {
-        employee: this.employee,
-      });
+      this.$store.dispatch("loading/add")
+      const resp = await this.$axios.$put("/api/employee/" + this.employee.id, {
+        employee: this.employee
+      })
       if (resp.result) {
-        alert("更新しました。");
-        this.$router.go(-1);
+        alert("更新しました。")
+        this.$router.go(-1)
       } else {
-        this.errorMessage = resp.data.errorMessage;
-        this.invalid = true;
+        this.errorMessage = resp.data.errorMessage
+        this.invalid = true
       }
-      this.$store.dispatch("loading/sub");
+      this.$store.dispatch("loading/sub")
     },
     async onDelete() {
-      this.$store.dispatch("loading/add");
-      const resp = await this.$axios.$delete("/api/employee/"+ this.employee.id);
+      this.$store.dispatch("loading/add")
+      const resp = await this.$axios.$delete(
+        "/api/employee/" + this.employee.id
+      )
       if (resp.result) {
-        alert("削除しました。");
-        this.$router.go(-1);
+        alert("削除しました。")
+        this.$router.go(-1)
       } else {
-        this.errorMessage = resp.data.errorMessage;
-        this.invalid = true;
+        this.errorMessage = resp.data.errorMessage
+        this.invalid = true
       }
-      this.$store.dispatch("loading/sub");
+      this.$store.dispatch("loading/sub")
     },
     onBack() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     onCopy() {
       this.$router.replace(this.employee.id + "/copy")
     }
-  },
+  }
 }
 </script>

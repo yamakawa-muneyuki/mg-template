@@ -1,0 +1,14 @@
+name: NuxtjsSimple
+
+on: [push]
+
+jobs:
+  nuxtjs-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install Dependencies
+        run: |
+          cd front
+          npm ci
+          npm run lint

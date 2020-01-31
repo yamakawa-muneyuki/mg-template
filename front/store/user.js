@@ -1,41 +1,41 @@
 export const state = () => ({
   token: null,
   user: null
-});
+})
 
 export const mutations = {
-  setUser(state, {user,token}) {
-    state.user = user;
+  setUser(state, { user, token }) {
+    state.user = user
     state.token = token
-  },
-};
+  }
+}
 
 let promise = null
 
 export const actions = {
-  async login({ commit }, { name,password }) {
+  async login({ commit }, { name, password }) {
     const api = this.$axios.create()
-    const { data } = await api.post("/api/login", {name,password})
+    const { data } = await api.post("/api/login", { name, password })
     commit("setUser", {
       user: data.user,
       token: data.token.token
     })
     localStorage.setItem("TOKEN", data.token.token)
   },
-  async relogin({ commit,state }) {
-    if(state.user){
+  async relogin({ commit, state }) {
+    if (state.user) {
       return true
     }
-    if(promise){
+    if (promise) {
       return promise
     }
-    promise = new Promise(async (resolve)=>{
+    promise = new Promise(async resolve => {
       const token = localStorage.getItem("TOKEN")
-      if(!token){
+      if (!token) {
         resolve(false)
       }
       console.log("set token")
-      this.$axios.setToken(token, 'Bearer')
+      this.$axios.setToken(token, "Bearer")
       try {
         const { data } = await this.$axios.get("/api/whoami")
         commit("setUser", {
@@ -43,11 +43,10 @@ export const actions = {
           token: token
         })
         resolve(true)
-      } catch (e){
+      } catch (e) {
         resolve(false)
       }
     })
     return promise
-
   }
-};
+}
