@@ -26,6 +26,7 @@
                 ユーザ名を入力してください。
               </div>
             </div>
+            <input type="text" v-if="$v">
             <div class="form-group row">
               <label
                 for="password"
