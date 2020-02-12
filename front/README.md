@@ -1,5 +1,7 @@
 # front
 
+[![Actions Status](https://github.com/mikakane/mg-template/workflows/NuxtjsSimple/badge.svg)](https://github.com/mikakane/mg-template/actions)
+
 > My tiptop Nuxt.js project
 
 ## Build Setup

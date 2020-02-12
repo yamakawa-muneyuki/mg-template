@@ -13,13 +13,12 @@
 
 <script>
 export default {
-  async mounted() {
-  },
+  async mounted() {}
 }
 </script>
 
 <style>
-  /* .container{
+/* .container{
     max-width: 640px;
   } */
 </style>
