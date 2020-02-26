@@ -30,4 +30,7 @@ Route::middleware(['auth:myauth'])->group(function () {
     Route::put('employee/{employee}', 'API\EmployeeController@update');
     Route::delete('employee/{employee}', 'API\EmployeeController@destroy');
     Route::get('employee/selector', 'API\EmployeeController@selector');
+
+    Route::get('report', 'API\ReportController@index');
+    Route::post('report', 'API\ReportController@store');
 });
