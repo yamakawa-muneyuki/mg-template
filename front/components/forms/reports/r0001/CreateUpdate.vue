@@ -325,7 +325,7 @@
         <div class="span-title mb-2">
           担当者
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
           <select v-model="report.employee" class="form-control">
             <option></option>
             <option

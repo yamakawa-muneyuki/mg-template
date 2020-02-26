@@ -155,7 +155,8 @@ export default {
             },
             { required: false, contents: "その他", result: "" }
           ]
-        }
+        },
+        employees: []
       }
     }
   },
@@ -167,7 +168,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("user/relogin")
-    // this.getInit()
+    this.getInit()
   },
   methods: {
     async getInit() {
