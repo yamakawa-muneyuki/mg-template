@@ -24,6 +24,8 @@
     "vue-loading-overlay": "^3.2.0",
     "vue-mg-date-picker-from-to": "^1.0.3",
     "vue-mg-date-picker-standard": "^1.0.1",
+    "vue-mg-paginate": "^1.0.3",
+    "vue-mg-toggle-selector": "^1.0.0",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {

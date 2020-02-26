@@ -30,11 +30,11 @@
         <div class="card-block mb-3">
           <form class="form-inline">
             <div class="form-group mr-sm-2">
-              <!-- <date-picker-from-to
+              <date-picker-from-to
                 label="作業日"
                 :from_dt.sync="started_from"
                 :to_dt.sync="started_to"
-              />-->
+              />
             </div>
             <div class="align-self-center ml-3">
               <button type="button" class="btn btn-primary" @click="onSearch">
@@ -42,54 +42,7 @@
               </button>
             </div>
           </form>
-          <form class="form-inline d-flex mt-3">
-            <div class="form-group">
-              <label class="mr-sm-2">担当者</label>
-              <select v-model="selectedEmployee" class="form-control">
-                <option />
-                <option
-                  v-for="employee in employees"
-                  :key="employee.id"
-                  :value="employee.name"
-                >
-                  {{ employee.name }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label class="mr-sm-2 ml-sm-4">得意先名</label>
-              <select v-model="selectedCustomer" class="form-control">
-                <option />
-                <option
-                  v-for="customer in customers"
-                  :key="customer.id"
-                  :value="customer.name"
-                >
-                  {{ customer.name }}
-                </option>
-              </select>
-            </div>
-          </form>
         </div>
-        <!-- <div class="card-block mb-3">
-          <form class="form-inline">
-            <div class="form-group">
-              <label class="mr-sm-2">商品名</label>
-              <select class="form-control" v-model="selectedItem">
-                <option></option>
-                <option v-for="item in filteredItems" :key="item.id">{{item}}</option>
-              </select>
-            </div>
-            <div class="form-group" v-show="!disabled">
-              <label class="mr-sm-2 ml-sm-4">入力状態</label>
-              <select class="form-control" v-model="selectedFinish">
-                <option></option>
-                <option value="0">未完了</option>
-                <option value="1">完了</option>
-              </select>
-            </div>
-          </form>
-        </div> -->
         <table key="processes" class="table-custom">
           <thead>
             <tr>
@@ -97,13 +50,10 @@
                 作業日
               </th>
               <th class="text-center bg-primary text-white">
-                担当者
+                工事名
               </th>
               <th class="text-center bg-primary text-white">
-                得意先名
-              </th>
-              <th class="text-center bg-primary text-white">
-                商品名
+                工事期間
               </th>
             </tr>
           </thead>
@@ -117,36 +67,23 @@
               @click="onShow(report.id)"
             >
               <td class="text-center">
-                {{ report.started_on }}
+                {{ report.created_at }}
               </td>
               <td class="text-center">
-                {{ report.employees }}
+                {{ report.name }}
               </td>
               <td class="text-center">
-                <div
-                  v-for="(report_detail, index) in report.report_details"
-                  :key="index"
-                >
-                  {{ report_detail.customer_name }}
-                </div>
-              </td>
-              <td class="text-center">
-                <div
-                  v-for="(report_detail, index) in report.report_details"
-                  :key="index"
-                >
-                  {{ report_detail.item_name }}
-                </div>
+                {{ report.from_period + "～" + report.to_period }}
               </td>
             </tr>
           </tbody>
         </table>
         <div class="mt-2">
-          <!-- <mg-paginate
+          <mg-paginate
             :data="filterReports"
             :count-per-page="countPerPage"
-            @change="paginateReports=$event"
-          ></mg-paginate>-->
+            @change="paginateReports = $event"
+          ></mg-paginate>
         </div>
       </div>
     </div>
@@ -185,7 +122,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("user/relogin")
-    this.getInit()
+    // this.getInit()
     this.started_from = this.$moment().subtract(14, "days")
     this.started_to = this.$moment()
   },
@@ -278,35 +215,32 @@ export default {
       // this.items = item.data;
       this.$store.dispatch("loading/sub")
     },
-    getItems() {
-      this.isLoading = true
-      const api = axios.create()
-      axios
-        .all([
-          api.get("/api/report", {
-            params: {
-              started_on: this.started_from,
-              finished_on: this.started_to
-              // customer_id: this.selectedCustomer,
-              // item_id: this.selectedItem,
-            }
-          })
-        ])
-        .then(
-          axios.spread((res1, res2, res3, res4) => {
-            this.reports = res1.data
-            this.isLoading = false
-          })
-        )
+    async getItems() {
+      this.$store.dispatch("loading/add")
+      try {
+        const { data } = await this.$axios.$get("/api/report", {
+          params: {
+            started_from: this.started_from,
+            started_to: this.started_to
+          }
+        })
+        this.reports = data
+      } catch (e) {
+
+      } finally {
+        this.$store.dispatch("loading/sub")
+      }
+      
     },
     onCreate() {
-      this.$router.push({ name: "report.create" })
+      this.$router.push("r0001/create")
     },
     onShow(report_id) {
-      this.$router.push({
-        name: "report.show",
-        params: { report_id: report_id }
-      })
+      // this.$router.push({
+      //   name: "report.show",
+      //   params: { report_id: report_id }
+      // })
+      this.$router.push("r0001/" + report_id)
     },
     onBack() {
       this.$router.go(-1)

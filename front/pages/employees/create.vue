@@ -40,7 +40,7 @@ export default {
       })
       if (resp.result) {
         alert("登録しました。")
-        this.$router.go(-1)
+        this.onBack()
       } else {
         this.errorMessage = resp.errorMessage
         this.invalid = true

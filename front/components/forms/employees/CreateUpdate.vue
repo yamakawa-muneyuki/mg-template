@@ -213,7 +213,6 @@
         </div>
       </div>
     </div>
-    <!-- <loading :active.sync="isLoading" :is-full-page="fullPage"></loading> -->
   </div>
 </template>
 
@@ -238,10 +237,7 @@ export default {
     return {
       roles: [],
       invalid: false,
-      errorMessage: "",
-
-      isLoading: false,
-      fullPage: false
+      errorMessage: ""
     }
   },
   computed: {

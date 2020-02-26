@@ -6,7 +6,10 @@
           メニュー
         </h3>
         <div v-if="show" class="d-flex justify-content-center mb-2">
-          <nuxt-link to="/reports" class="btn btn-primary btn-menu mr-3 mb-3">
+          <nuxt-link
+            to="/reports/r0001"
+            class="btn btn-primary btn-menu mr-3 mb-3"
+          >
             作業日報
           </nuxt-link>
           <nuxt-link
