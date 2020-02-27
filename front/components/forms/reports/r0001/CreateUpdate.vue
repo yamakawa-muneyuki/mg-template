@@ -24,11 +24,19 @@
           <div class="align-self-center flex-fill">
             <input
               v-if="!is_readonly"
-              v-model="report.construction.name"
+              v-model="$v.report.construction.name.$model"
               type="text"
               class="form-control"
             />
             <span v-else>{{ report.construction.name }}</span>
+          </div>
+        </div>
+        <div class="d-flex justify-content-start mb-2">
+          <div
+            v-if="!$v.report.construction.name.required && $v.$dirty"
+            class="error"
+          >
+            工事名称を入力してください。
           </div>
         </div>
         <div class="span-title mb-1">
@@ -354,7 +362,7 @@
 </template>
 
 <script>
-// import { validations } from "~/service/validations/reports/r0001"
+import { validations } from "~/service/validations/reports/r0001"
 
 export default {
   components: {
@@ -399,13 +407,13 @@ export default {
   },
   methods: {
     onStore() {
-      // this.$v.$touch()
-      // if (this.$v.employee.$invalid) {
-      //   alert("エラーです。")
-      // } else {
-      //   this.$emit("store", this.employee)
-      // }
-      this.$emit("store", this.report)
+      this.$v.$touch()
+      if (this.$v.report.$invalid) {
+        alert("エラーです。")
+      } else {
+        this.$emit("store", this.report)
+      }
+      // this.$emit("store", this.report)
     },
     onBack() {
       this.$emit("back")
@@ -419,8 +427,8 @@ export default {
     onCopy() {
       this.$emit("copy")
     }
-  }
-  // validations
+  },
+  validations
 }
 </script>
 
@@ -430,5 +438,8 @@ export default {
 }
 .span-item {
   font-weight: bold;
+}
+.error {
+  color: red;
 }
 </style>
