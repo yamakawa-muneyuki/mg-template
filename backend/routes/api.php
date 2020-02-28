@@ -36,4 +36,5 @@ Route::middleware(['auth:myauth'])->group(function () {
     Route::get('report/{report}', 'API\ReportController@show');
     Route::put('report/{report}', 'API\ReportController@update');
     Route::delete('report/{report}', 'API\ReportController@destroy');
+    Route::get('report/csv', 'API\ReportController@csv');
 });

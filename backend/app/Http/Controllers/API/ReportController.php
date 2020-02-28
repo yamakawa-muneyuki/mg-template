@@ -99,4 +99,24 @@ class ReportController extends Controller
             'result' => true,
         ]);
     }
+
+    /**
+     * CSV出力
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function csv(Request $request)
+    {
+        $payload = $request->all();
+        $query = Report::query();
+        if ($payload['started_from']) {
+            $query->where('created_at', '>=', $payload['started_from']);
+        }
+        if ($payload['started_to']) {
+            $to = Carbon::parse($payload['started_to']);
+            $query->where('created_at', '<', $to->addDay());
+        }
+        $reports = $query->orderBy('created_at', 'desc')->get();
+        return ReportForListResource::collection($reports);
+    }
 }

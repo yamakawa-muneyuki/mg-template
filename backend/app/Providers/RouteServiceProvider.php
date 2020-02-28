@@ -31,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         Route::pattern('employee', '[0-9]+');
+        Route::pattern('report', '[0-9]+');
 
         parent::boot();
     }

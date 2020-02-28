@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Reports\NoFire;
+use App\Reports\ReportFactory;
 
 class ReportForList extends JsonResource
 {
@@ -15,7 +15,7 @@ class ReportForList extends JsonResource
      */
     public function toArray($request)
     {
-        $report = new NoFire($this);
+        $report = ReportFactory::create($this->type, $this);
         // logger($report->construction->name);
         return [
             'id' => $this->id,

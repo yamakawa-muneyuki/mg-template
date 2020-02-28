@@ -230,7 +230,6 @@ export default {
       } finally {
         this.$store.dispatch("loading/sub")
       }
-      
     },
     onCreate() {
       this.$router.push("r0001/create")
@@ -269,35 +268,51 @@ export default {
       }
       return text
     },
-    downloadCSV() {
-      var csv =
+    async downloadCSV() {
+      this.$store.dispatch("loading/add")
+      try {
+        const { data } = await this.$axios.$get("/api/report/csv", {
+          params: {
+            started_from: this.started_from,
+            started_to: this.started_to
+          }
+        })
+        const reports = data
+
+        var csv =
         "\ufeff" +
         "作業開始日,作業終了日,担当者,得意先コード,得意先名,商品コード,商品名,機械,設備,製造指示数,段取り時間,製造完了数,作業時間"
-      csv += "\n"
-      this.reports.forEach(el => {
-        el.report_details.forEach(detail => {
-          var line = '"' + el.started_on + '",'
-          line += '"' + el.finished_on + '",'
-          line += '"' + el.employees + '",'
-          line += '"' + detail.customer_code + '",'
-          line += '"' + detail.customer_name + '",'
-          line += '"' + detail.item_code + '",'
-          line += '"' + detail.item_name + '",'
-          line += '"' + detail.category_name + '",'
-          line += '"' + detail.facility_name + '",'
-          line += '"' + detail.instruction_num + '",'
-          line += '"' + detail.setup_time + '",'
-          line += '"' + detail.finish_num + '",'
-          line += '"' + detail.work_time + '",'
-          line += "\n"
-          csv += line
+        csv += "\n"
+        this.reports.forEach(el => {
+          el.report_details.forEach(detail => {
+            var line = '"' + el.started_on + '",'
+            line += '"' + el.finished_on + '",'
+            line += '"' + el.employees + '",'
+            line += '"' + detail.customer_code + '",'
+            line += '"' + detail.customer_name + '",'
+            line += '"' + detail.item_code + '",'
+            line += '"' + detail.item_name + '",'
+            line += '"' + detail.category_name + '",'
+            line += '"' + detail.facility_name + '",'
+            line += '"' + detail.instruction_num + '",'
+            line += '"' + detail.setup_time + '",'
+            line += '"' + detail.finish_num + '",'
+            line += '"' + detail.work_time + '",'
+            line += "\n"
+            csv += line
+          })
         })
-      })
-      let blob = new Blob([csv], { type: "text/csv" })
-      let link = document.createElement("a")
-      link.href = window.URL.createObjectURL(blob)
-      link.download = "download.csv"
-      link.click()
+        let blob = new Blob([csv], { type: "text/csv" })
+        let link = document.createElement("a")
+        link.href = window.URL.createObjectURL(blob)
+        link.download = "download.csv"
+        link.click()
+      } catch (e) {
+
+      } finally {
+        this.$store.dispatch("loading/sub")
+      }
+      
     }
   }
 }
